@@ -1,9 +1,12 @@
-import React, { FC } from 'react'
-import LineGraph from '../graphics/line-graph'
+import { FC } from "react";
+import LineGraph from "../graphics/line-graph";
+import { getOrders } from "@/utils/service";
 
-const SalesChart:FC = () => {
+const SalesChart: FC = async () => {
+  // api'dan siparişleri getir
+  const orders = await getOrders();
 
-     // siparişlerine verine göre grafik datassı oluştur
+  // siparişlerine verine göre grafik datassı oluştur
   const data = {
     labels: orders.map((order) => order.order_date),
     datasets: [
@@ -21,13 +24,12 @@ const SalesChart:FC = () => {
   };
 
   return (
-    <div className='bg-white rounded-lg p-5'>
-        <h2 className='subitl'>Satışlar</h2>
-      
+    <div className="bg-white rounded-lg p-5 shadow-md">
+      <h2 className="subtitle mb-5">Satışlar</h2>
 
-      <LineGraph data={data}/>
+      <LineGraph data={data} />
     </div>
-  )
-}
+  );
+};
 
-export default SalesChart
+export default SalesChart;
